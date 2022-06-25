@@ -14,5 +14,8 @@ namespace BusinessObject.Models
         public string JobTitleId { get; set; }
 
         public virtual JobTitle JobTitle { get; set; }
+        public override string ToString() {
+            return this.EmployeeName.ToString();
+        }
     }
 }
