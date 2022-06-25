@@ -238,7 +238,6 @@
             this.mTB_Management_YoB.Location = new System.Drawing.Point(691, 147);
             this.mTB_Management_YoB.Mask = "0000";
             this.mTB_Management_YoB.Name = "mTB_Management_YoB";
-            this.mTB_Management_YoB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.mTB_Management_YoB.Size = new System.Drawing.Size(182, 31);
             this.mTB_Management_YoB.TabIndex = 15;
             this.mTB_Management_YoB.ValidatingType = typeof(int);

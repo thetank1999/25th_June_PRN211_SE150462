@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace WinFormsApp
         IEnumerable<Employee> _employeeList;
         JobTitleRepository _jobTitleRepository= new JobTitleRepository();
         IEnumerable<JobTitle> _jobTitleList;
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
         public frmManagement() {
             InitializeComponent();
         }
@@ -56,11 +58,18 @@ namespace WinFormsApp
                 btn_Management_AddEmp.Text = "Save";
             } else {
                 if (tB_Management_EmpName.Text.Equals("")
-                    ||tB_Management_DptName.Text.Equals("")
-                    ||mTB_Management_YoB.Text.Equals("")
-                    ||cB_Manament_JobTitle.SelectedItem.Equals("")
-                    ||tB_Manament_Id.Text.Equals("") ){
+                    || tB_Management_DptName.Text.Equals("")
+                    || mTB_Management_YoB.Text.Equals("")
+                    || cB_Manament_JobTitle.SelectedItem.Equals("")
+                    || tB_Manament_Id.Text.Equals("")) {
                     MessageBox.Show("Invalid Input.");
+                } else if (1960 > Int32.Parse(mTB_Management_YoB.Text)
+                        || 2002 < Int32.Parse(mTB_Management_YoB.Text)) {
+                    MessageBox.Show("Year of birth must greater than 1960 and smaller than 2002.");
+                } else if (tB_Management_EmpName.Text.Length < 10) {
+                    MessageBox.Show("Employee name must be longer than 10 characters.");
+                }else if (!tB_Management_EmpName.Text.Equals(textInfo.ToTitleCase(tB_Management_EmpName.Text))) {
+                    MessageBox.Show("Employee name must start with a capital character for each words.");
                 }else {
                     var tempEmp = new Employee();
                     tempEmp.EmployeeId = tB_Manament_Id.Text;
@@ -86,10 +95,18 @@ namespace WinFormsApp
                 this.EnableInputs();
             } else {
                 if (tB_Management_EmpName.Text.Equals("")
-                    ||tB_Management_DptName.Text.Equals("")
-                    ||mTB_Management_YoB.Text.Equals("")
-                    ||cB_Manament_JobTitle.SelectedItem.Equals("")) {
-                    MessageBox.Show("Invalid Input");
+                    || tB_Management_DptName.Text.Equals("")
+                    || mTB_Management_YoB.Text.Equals("")
+                    || cB_Manament_JobTitle.SelectedItem.Equals("")
+                    || tB_Manament_Id.Text.Equals("")) {
+                    MessageBox.Show("Invalid Input.");
+                } else if (1960 > Int32.Parse(mTB_Management_YoB.Text)
+                        || 2002 < Int32.Parse(mTB_Management_YoB.Text)) {
+                    MessageBox.Show("Year of birth must greater than 1960 and smaller than 2002.");
+                } else if (tB_Management_EmpName.Text.Length < 10) {
+                    MessageBox.Show("Employee name must be longer than 10 characters.");
+                } else if (!tB_Management_EmpName.Text.Equals(textInfo.ToTitleCase(tB_Management_EmpName.Text))) {
+                    MessageBox.Show("Employee name must start with a capital character for each words.");
                 } else {
                     var stringTemp = DGV_Management_Emp.SelectedRows[0].Cells[0].Value.ToString();
                     var temp = _employeeRepository.GetEmployeeById(stringTemp);
